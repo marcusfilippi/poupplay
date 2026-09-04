@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProgressoRouteImport } from './routes/progresso'
+import { Route as JogosIndexRouteImport } from './routes/jogos.index'
+import { Route as JogosJogoIdRouteImport } from './routes/jogos.$jogoId'
+import { Route as TrilhasIndexRouteImport } from './routes/trilhas.index'
+import { Route as TrilhasTrilhaIdRouteImport } from './routes/trilhas.$trilhaId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProgressoRoute = ProgressoRouteImport.update({
+  id: '/progresso',
+  path: '/progresso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JogosIndexRoute = JogosIndexRouteImport.update({
+  id: '/jogos/',
+  path: '/jogos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JogosJogoIdRoute = JogosJogoIdRouteImport.update({
+  id: '/jogos/$jogoId',
+  path: '/jogos/$jogoId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrilhasIndexRoute = TrilhasIndexRouteImport.update({
+  id: '/trilhas/',
+  path: '/trilhas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrilhasTrilhaIdRoute = TrilhasTrilhaIdRouteImport.update({
+  id: '/trilhas/$trilhaId',
+  path: '/trilhas/$trilhaId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/progresso': typeof ProgressoRoute
+  '/jogos/$jogoId': typeof JogosJogoIdRoute
+  '/trilhas/$trilhaId': typeof TrilhasTrilhaIdRoute
+  '/jogos/': typeof JogosIndexRoute
+  '/trilhas/': typeof TrilhasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/progresso': typeof ProgressoRoute
+  '/jogos/$jogoId': typeof JogosJogoIdRoute
+  '/trilhas/$trilhaId': typeof TrilhasTrilhaIdRoute
+  '/jogos': typeof JogosIndexRoute
+  '/trilhas': typeof TrilhasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/progresso': typeof ProgressoRoute
+  '/jogos/$jogoId': typeof JogosJogoIdRoute
+  '/trilhas/$trilhaId': typeof TrilhasTrilhaIdRoute
+  '/jogos/': typeof JogosIndexRoute
+  '/trilhas/': typeof TrilhasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/progresso'
+    | '/jogos/$jogoId'
+    | '/trilhas/$trilhaId'
+    | '/jogos/'
+    | '/trilhas/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/progresso'
+    | '/jogos/$jogoId'
+    | '/trilhas/$trilhaId'
+    | '/jogos'
+    | '/trilhas'
+  id:
+    | '__root__'
+    | '/'
+    | '/progresso'
+    | '/jogos/$jogoId'
+    | '/trilhas/$trilhaId'
+    | '/jogos/'
+    | '/trilhas/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ProgressoRoute: typeof ProgressoRoute
+  JogosJogoIdRoute: typeof JogosJogoIdRoute
+  TrilhasTrilhaIdRoute: typeof TrilhasTrilhaIdRoute
+  JogosIndexRoute: typeof JogosIndexRoute
+  TrilhasIndexRoute: typeof TrilhasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/progresso': {
+      id: '/progresso'
+      path: '/progresso'
+      fullPath: '/progresso'
+      preLoaderRoute: typeof ProgressoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jogos/': {
+      id: '/jogos/'
+      path: '/jogos'
+      fullPath: '/jogos/'
+      preLoaderRoute: typeof JogosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jogos/$jogoId': {
+      id: '/jogos/$jogoId'
+      path: '/jogos/$jogoId'
+      fullPath: '/jogos/$jogoId'
+      preLoaderRoute: typeof JogosJogoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trilhas/': {
+      id: '/trilhas/'
+      path: '/trilhas'
+      fullPath: '/trilhas/'
+      preLoaderRoute: typeof TrilhasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trilhas/$trilhaId': {
+      id: '/trilhas/$trilhaId'
+      path: '/trilhas/$trilhaId'
+      fullPath: '/trilhas/$trilhaId'
+      preLoaderRoute: typeof TrilhasTrilhaIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ProgressoRoute: ProgressoRoute,
+  JogosJogoIdRoute: JogosJogoIdRoute,
+  TrilhasTrilhaIdRoute: TrilhasTrilhaIdRoute,
+  JogosIndexRoute: JogosIndexRoute,
+  TrilhasIndexRoute: TrilhasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
