@@ -32,7 +32,7 @@ function TrilhaPage() {
   const { trilhaId } = Route.useParams();
   const trilha = getTrilha(trilhaId)!;
   const { progresso } = useProgresso();
-  const [abertaId, setAbertaId] = React.useState<string | null>(trilha.licoes[0].id);
+  const [abertaId, setAbertaId] = React.useState<string | null>(trilha.licoes[0]!.id);
 
   const feitas = trilha.licoes.filter((l) =>
     progresso.licoesConcluidas.includes(`${trilha.id}/${l.id}`),

@@ -307,7 +307,7 @@ function JogoEscolhas() {
     );
   }
 
-  const s = situacoes[i];
+  const s = situacoes[i]!;
   const respondido = escolha !== null;
 
   return (
@@ -448,7 +448,7 @@ function JogoJuros() {
     );
   }
 
-  const r = rodadas[i];
+  const r = rodadas[i]!;
   const respondido = escolha !== null;
 
   return (
