@@ -10,6 +10,8 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { PoupLayout } from "../components/PoupLayout";
+import { ProgressoProvider } from "../lib/poup-progress";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -116,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>
@@ -133,8 +135,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <ProgressoProvider>
+        <PoupLayout>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </PoupLayout>
+      </ProgressoProvider>
     </QueryClientProvider>
   );
 }
