@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, CheckCircle2, Circle, Clock, Lightbulb } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Circle, Clock, GraduationCap, Lightbulb, RotateCcw } from "lucide-react";
 import * as React from "react";
+import { Button } from "@/components/ui/button";
 import { getTrilha, type Licao } from "@/lib/poup-content";
 import { useProgresso } from "@/lib/poup-progress";
 import { cn } from "@/lib/utils";
@@ -30,9 +31,11 @@ export const Route = createFileRoute("/trilhas/$trilhaId")({
 
 function TrilhaPage() {
   const { trilhaId } = Route.useParams();
-  const trilha = getTrilha(trilhaId)!;
+  const trilha = getTrilha(trilhaId);
   const { progresso } = useProgresso();
-  const [abertaId, setAbertaId] = React.useState<string | null>(trilha.licoes[0]!.id);
+  const [abertaId, setAbertaId] = React.useState<string | null>(trilha?.licoes[0]?.id ?? null);
+
+  if (!trilha) return null;
 
   const feitas = trilha.licoes.filter((l) =>
     progresso.licoesConcluidas.includes(`${trilha.id}/${l.id}`),
@@ -48,7 +51,12 @@ function TrilhaPage() {
       </Link>
 
       <header className="mt-6">
-        <span className="text-5xl">{trilha.emoji}</span>
+        <div className="flex items-center gap-3">
+          <span className="text-5xl">{trilha.emoji}</span>
+          <span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">
+            {trilha.nivel}
+          </span>
+        </div>
         <h1 className="mt-3 text-4xl font-extrabold sm:text-5xl">{trilha.titulo}</h1>
         <p className="mt-2 text-muted-foreground">{trilha.subtitulo}</p>
         <div className="mt-5 flex items-center gap-3">
@@ -76,7 +84,116 @@ function TrilhaPage() {
           />
         ))}
       </div>
+
+      <ProvaFinal trilha={trilha} liberada={feitas === trilha.licoes.length} />
     </div>
+  );
+}
+
+type QuestaoProva = {
+  pergunta: string;
+  opcoes: { texto: string; correta: boolean }[];
+  explicacao: string;
+};
+
+function embaralhar<T>(itens: T[]) {
+  return [...itens].sort(() => Math.random() - 0.5);
+}
+
+function criarProva(trilha: ReturnType<typeof getTrilha>): QuestaoProva[] {
+  if (!trilha) return [];
+  return embaralhar(trilha.licoes).map((licao) => ({
+    pergunta: licao.quiz.pergunta,
+    explicacao: licao.quiz.explicacao,
+    opcoes: embaralhar(
+      licao.quiz.opcoes.map((texto, index) => ({ texto, correta: index === licao.quiz.correta })),
+    ),
+  }));
+}
+
+function ProvaFinal({ trilha, liberada }: { trilha: NonNullable<ReturnType<typeof getTrilha>>; liberada: boolean }) {
+  const { progresso, aprovarProva } = useProgresso();
+  const aprovada = progresso.provasAprovadas.includes(trilha.id);
+  const [questoes, setQuestoes] = React.useState(() => criarProva(trilha));
+  const [respostas, setRespostas] = React.useState<Record<number, number>>({});
+  const [corrigida, setCorrigida] = React.useState(false);
+  const acertos = questoes.reduce(
+    (total, questao, index) => total + (questao.opcoes[respostas[index] ?? -1]?.correta ? 1 : 0),
+    0,
+  );
+  const percentual = questoes.length ? Math.round((acertos / questoes.length) * 100) : 0;
+  const passou = percentual >= 70;
+
+  function corrigir() {
+    setCorrigida(true);
+    if (percentual >= 70) aprovarProva(trilha.id);
+  }
+
+  function tentarNovamente() {
+    setQuestoes(criarProva(trilha));
+    setRespostas({});
+    setCorrigida(false);
+  }
+
+  return (
+    <section className="mt-10 border-t border-border pt-10">
+      <div className="flex items-start gap-4">
+        <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
+          <GraduationCap className="size-6" />
+        </span>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wide text-primary">Prova final</p>
+          <h2 className="text-2xl font-extrabold">Mostre que dominou esta trilha</h2>
+          <p className="mt-1 text-sm text-muted-foreground">Acerte pelo menos 70% para ganhar 100 pontos e concluir o nível.</p>
+        </div>
+      </div>
+
+      {!liberada && (
+        <div className="mt-6 rounded-2xl border border-border bg-muted/40 p-5 text-sm text-muted-foreground">
+          Conclua as {trilha.licoes.length} lições para liberar a prova.
+        </div>
+      )}
+
+      {liberada && aprovada && !corrigida && (
+        <div className="mt-6 flex items-center gap-3 rounded-2xl bg-success/20 p-5 text-sm font-bold">
+          <CheckCircle2 className="size-5 text-success" /> Prova aprovada. Você concluiu esta trilha.
+        </div>
+      )}
+
+      {liberada && !aprovada && !corrigida && (
+        <div className="mt-7 space-y-6">
+          {questoes.map((questao, qi) => (
+            <fieldset key={questao.pergunta} className="rounded-2xl border border-border bg-card p-5">
+              <legend className="px-2 text-sm font-bold">{qi + 1}. {questao.pergunta}</legend>
+              <div className="mt-3 grid gap-2">
+                {questao.opcoes.map((opcao, oi) => (
+                  <label key={opcao.texto} className="flex cursor-pointer items-center gap-3 rounded-xl border border-border p-3 text-sm transition hover:border-primary/50">
+                    <input type="radio" name={`prova-${trilha.id}-${qi}`} checked={respostas[qi] === oi} onChange={() => setRespostas((atuais) => ({ ...atuais, [qi]: oi }))} className="accent-primary" />
+                    {opcao.texto}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          ))}
+          <Button className="h-11 rounded-full px-6 font-bold" disabled={Object.keys(respostas).length !== questoes.length} onClick={corrigir}>Corrigir prova</Button>
+        </div>
+      )}
+
+      {liberada && corrigida && (
+        <div className={cn("mt-7 rounded-2xl border p-6", passou ? "border-success bg-success/15" : "border-destructive bg-destructive/10")}>
+          <p className="text-2xl font-extrabold">{percentual}% de acertos</p>
+          <p className="mt-1 text-sm text-muted-foreground">{passou ? "Aprovado! A trilha foi concluída e 100 pontos foram adicionados." : "Revise as explicações e tente novamente. As alternativas mudarão de posição."}</p>
+          {!passou && (
+            <div className="mt-5 space-y-3">
+              {questoes.map((questao, index) => !questao.opcoes[respostas[index] ?? -1]?.correta && (
+                <p key={questao.pergunta} className="text-sm"><strong>{questao.pergunta}</strong><br /><span className="text-muted-foreground">{questao.explicacao}</span></p>
+              ))}
+              <Button variant="outline" className="mt-2 rounded-full" onClick={tentarNovamente}><RotateCcw /> Tentar novamente</Button>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
   );
 }
 
