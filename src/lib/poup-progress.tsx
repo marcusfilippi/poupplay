@@ -3,6 +3,7 @@ import * as React from "react";
 export type Progresso = {
   licoesConcluidas: string[];
   quizzesAcertados: string[];
+  provasAprovadas: string[];
   pontos: number;
   jogos: Record<string, number>;
   metas: Meta[];
@@ -20,6 +21,7 @@ const CHAVE = "poup-progresso-v1";
 const inicial: Progresso = {
   licoesConcluidas: [],
   quizzesAcertados: [],
+  provasAprovadas: [],
   pontos: 0,
   jogos: {},
   metas: [],
@@ -29,6 +31,7 @@ type Ctx = {
   progresso: Progresso;
   pronto: boolean;
   concluirLicao: (id: string, acertouQuiz: boolean) => void;
+  aprovarProva: (trilhaId: string) => void;
   registrarJogo: (id: string, pontos: number) => void;
   adicionarMeta: (nome: string, alvo: number) => void;
   guardarNaMeta: (id: string, valor: number) => void;
@@ -75,6 +78,15 @@ export function ProgressoProvider({ children }: { children: React.ReactNode }) {
             quizzesAcertados:
               acertouQuiz && !jaAcertou ? [...p.quizzesAcertados, id] : p.quizzesAcertados,
             pontos: p.pontos + (jaFeita ? 0 : 20) + (acertouQuiz && !jaAcertou ? 30 : 0),
+          };
+        }),
+      aprovarProva: (trilhaId) =>
+        setProgresso((p) => {
+          if (p.provasAprovadas.includes(trilhaId)) return p;
+          return {
+            ...p,
+            provasAprovadas: [...p.provasAprovadas, trilhaId],
+            pontos: p.pontos + 100,
           };
         }),
       registrarJogo: (id, pontos) =>
@@ -126,7 +138,7 @@ export function nivelDe(pontos: number) {
     { nome: "Investidor Jr.", min: 450 },
     { nome: "Mestre das Finanças", min: 700 },
   ];
-  const atual = [...niveis].reverse().find((n) => pontos >= n.min)!;
+  const atual = [...niveis].reverse().find((n) => pontos >= n.min) ?? niveis[0];
   const proximo = niveis.find((n) => n.min > pontos);
-  return { atual: atual.nome, proximo: proximo?.nome, faltam: proximo ? proximo.min - pontos : 0 };
+  return { atual: atual?.nome ?? "Poupador Iniciante", proximo: proximo?.nome, faltam: proximo ? proximo.min - pontos : 0 };
 }

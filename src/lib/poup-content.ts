@@ -21,6 +21,7 @@ export type Trilha = {
   subtitulo: string;
   emoji: string;
   cor: "primary" | "accent" | "warning" | "chart";
+  nivel: "Iniciante" | "Intermediário" | "Avançado";
   licoes: Licao[];
 };
 
@@ -31,6 +32,7 @@ export const trilhas: Trilha[] = [
     subtitulo: "Saiba para onde vai cada real que entra no seu bolso.",
     emoji: "🧾",
     cor: "primary",
+    nivel: "Iniciante",
     licoes: [
       {
         id: "o-que-e-orcamento",
@@ -112,6 +114,7 @@ export const trilhas: Trilha[] = [
     subtitulo: "Transforme vontade em meta e meta em conquista.",
     emoji: "🎯",
     cor: "accent",
+    nivel: "Iniciante",
     licoes: [
       {
         id: "reserva-emergencia",
@@ -185,6 +188,7 @@ export const trilhas: Trilha[] = [
     subtitulo: "Entenda juros antes que eles entendam você.",
     emoji: "💳",
     cor: "warning",
+    nivel: "Intermediário",
     licoes: [
       {
         id: "juros",
@@ -258,6 +262,7 @@ export const trilhas: Trilha[] = [
     subtitulo: "Do porquinho à renda fixa, sem palavras difíceis.",
     emoji: "📈",
     cor: "chart",
+    nivel: "Intermediário",
     licoes: [
       {
         id: "risco-retorno",
@@ -325,6 +330,167 @@ export const trilhas: Trilha[] = [
       },
     ],
   },
+  {
+    id: "renda-e-carreira",
+    titulo: "Renda e carreira",
+    subtitulo: "Entenda salário, benefícios e como aumentar sua capacidade de ganhar.",
+    emoji: "💼",
+    cor: "primary",
+    nivel: "Iniciante",
+    licoes: [
+      {
+        id: "salario-liquido",
+        titulo: "Salário bruto e líquido",
+        resumo: "Leia um pagamento sem confundir o combinado com o que chega à conta.",
+        minutos: 6,
+        paragrafos: [
+          "Salário bruto é o valor antes dos descontos. O líquido é o que realmente entra na conta depois de contribuições, impostos e outros descontos autorizados.",
+          "Benefícios também têm valor: vale-transporte, alimentação, plano de saúde e bolsa de estudos podem mudar bastante a comparação entre duas propostas.",
+          "Organize seu orçamento com a renda líquida recorrente. Horas extras e bônus são variáveis e funcionam melhor para metas do que para contas fixas.",
+        ],
+        dica: "Antes de aceitar uma proposta, compare o pacote total e pergunte quais descontos aparecerão no pagamento.",
+        quiz: { pergunta: "Qual valor deve sustentar suas despesas fixas?", opcoes: ["Salário bruto", "Renda líquida recorrente", "Bônus futuro", "Limite do cartão"], correta: 1, explicacao: "Somente a renda líquida recorrente está disponível com previsibilidade." },
+      },
+      {
+        id: "primeiro-trabalho",
+        titulo: "Planejamento do primeiro trabalho",
+        resumo: "Use a primeira renda para construir autonomia, não novas dívidas.",
+        minutos: 6,
+        paragrafos: [
+          "Quando a renda aumenta, os gastos costumam crescer junto. Esse fenômeno é chamado inflação do estilo de vida e pode impedir qualquer avanço financeiro.",
+          "Defina antecipadamente uma porcentagem para contribuir em casa, outra para objetivos e uma parte para lazer. Assim, cada aumento melhora seu futuro.",
+          "Investir em habilidades também pode trazer retorno: cursos úteis, idiomas e ferramentas podem ampliar oportunidades, desde que tenham propósito e caibam no orçamento.",
+        ],
+        dica: "Separe a quantia das metas no mesmo dia em que receber.",
+        quiz: { pergunta: "O que é inflação do estilo de vida?", opcoes: ["Alta do IPCA", "Gastar mais sempre que a renda cresce", "Redução salarial", "Investir em cursos"], correta: 1, explicacao: "É elevar o padrão de gastos na mesma velocidade da renda, sem criar patrimônio." },
+      },
+      {
+        id: "renda-extra",
+        titulo: "Renda extra com responsabilidade",
+        resumo: "Calcule preço, custos e tempo antes de vender um produto ou serviço.",
+        minutos: 7,
+        paragrafos: [
+          "Faturamento é tudo que entrou; lucro é o que sobra após materiais, taxas, transporte e outros custos. Confundir os dois faz um negócio parecer melhor do que é.",
+          "Para precificar, some custos diretos e indiretos, atribua valor ao seu tempo e inclua uma margem. Pesquisar concorrentes ajuda, mas copiar preço pode esconder realidades diferentes.",
+          "Registre cada venda e separe o dinheiro do trabalho do dinheiro pessoal. Mesmo em pequena escala, essa separação mostra se a atividade compensa.",
+        ],
+        dica: "Calcule quanto você ganha por hora já descontando todos os custos.",
+        quiz: { pergunta: "Uma venda de R$ 100 com R$ 65 de custos gera quanto de lucro?", opcoes: ["R$ 100", "R$ 65", "R$ 35", "R$ 165"], correta: 2, explicacao: "Lucro é faturamento menos custos: 100 − 65 = 35." },
+      },
+    ],
+  },
+  {
+    id: "impostos-e-cidadania",
+    titulo: "Impostos e cidadania",
+    subtitulo: "Descubra como tributos aparecem no consumo, na renda e nos serviços públicos.",
+    emoji: "🏛️",
+    cor: "warning",
+    nivel: "Intermediário",
+    licoes: [
+      {
+        id: "tributos-no-dia-a-dia", titulo: "Tributos no dia a dia", resumo: "Veja impostos embutidos no preço e cobrados sobre renda e patrimônio.", minutos: 7,
+        paragrafos: ["Tributos financiam serviços e estruturas públicas. Eles podem incidir sobre consumo, renda ou patrimônio, e cada tipo afeta as pessoas de maneira diferente.", "Nos impostos sobre consumo, parte do valor já está embutida no preço. Por isso, mesmo quem não entrega declaração de renda paga tributos ao comprar.", "A nota fiscal registra a operação, protege o consumidor e ajuda a reduzir a informalidade. Conferi-la também revela quanto do preço corresponde a tributos."],
+        dica: "Observe na próxima nota fiscal o campo de tributos aproximados.",
+        quiz: { pergunta: "Quem compra um produto paga tributos?", opcoes: ["Não", "Sim, parte pode estar no preço", "Só se declarar renda", "Só maiores de idade"], correta: 1, explicacao: "Tributos sobre consumo estão embutidos no preço final." },
+      },
+      {
+        id: "declaracao-e-documentos", titulo: "Documentos e declaração", resumo: "Organização evita erros e dá visão do patrimônio.", minutos: 7,
+        paragrafos: ["Comprovantes de renda, informes bancários, notas e recibos ajudam a explicar movimentações e confirmar despesas.", "Declarar não significa necessariamente pagar imposto: a obrigação e o valor dependem das regras de cada ano e da situação da pessoa.", "Nunca entregue senhas bancárias a quem promete fazer sua declaração. Compartilhe somente documentos necessários com profissionais confiáveis."],
+        dica: "Crie uma pasta por ano e guarde informes e recibos importantes.",
+        quiz: { pergunta: "Declarar renda sempre significa pagar imposto?", opcoes: ["Sempre", "Nunca", "Não; depende das regras e da situação", "Só para estudantes"], correta: 2, explicacao: "Obrigação de declarar e imposto a pagar são coisas diferentes." },
+      },
+      {
+        id: "servicos-publicos", titulo: "Orçamento público", resumo: "Conecte arrecadação, prioridades e fiscalização cidadã.", minutos: 8,
+        paragrafos: ["O orçamento público estima receitas e define despesas. Como os recursos são limitados, escolher uma prioridade significa adiar ou reduzir outra.", "Portais de transparência permitem acompanhar gastos, contratos e transferências. Fiscalização social é parte da cidadania financeira.", "Políticas públicas podem reduzir desigualdades quando ampliam acesso a educação, saúde e oportunidades, mas precisam de metas e avaliação de resultados."],
+        dica: "Consulte o portal de transparência da sua cidade e pesquise uma despesa pública.",
+        quiz: { pergunta: "Por que o orçamento público exige prioridades?", opcoes: ["Porque recursos são limitados", "Porque não há receitas", "Porque impostos são opcionais", "Porque não existem serviços"], correta: 0, explicacao: "Demandas são maiores que os recursos, exigindo escolhas e controle." },
+      },
+    ],
+  },
+  {
+    id: "protecao-financeira",
+    titulo: "Proteção financeira",
+    subtitulo: "Reconheça golpes, proteja seus dados e entenda quando um seguro faz sentido.",
+    emoji: "🛡️",
+    cor: "accent",
+    nivel: "Intermediário",
+    licoes: [
+      {
+        id: "golpes-digitais", titulo: "Golpes digitais", resumo: "Urgência, promessa e pedido de segredo são sinais de alerta.", minutos: 7,
+        paragrafos: ["Golpistas exploram emoções: medo, urgência, ganância ou autoridade. Uma mensagem que exige ação imediata deve ser verificada por outro canal.", "Nunca compartilhe senha, código de autenticação ou tela do aplicativo bancário. Instituições legítimas não pedem esses dados por mensagem.", "Em transferências, confira nome, instituição e valor antes de confirmar. Se houver fraude, avise o banco imediatamente e registre as evidências."],
+        dica: "Pare, confira e só então aja. A urgência do golpista não é sua urgência.",
+        quiz: { pergunta: "Qual pedido é um forte sinal de golpe?", opcoes: ["Conferir o destinatário", "Compartilhar código de autenticação", "Ler um contrato", "Pesquisar a empresa"], correta: 1, explicacao: "Códigos e senhas são pessoais e nunca devem ser compartilhados." },
+      },
+      {
+        id: "credito-e-identidade", titulo: "Proteção de identidade", resumo: "Seus dados também fazem parte do seu patrimônio.", minutos: 6,
+        paragrafos: ["Dados pessoais podem ser usados para abrir contas, pedir crédito e assumir compromissos em seu nome.", "Use senhas diferentes, autenticação em dois fatores e alertas de movimentação. Evite cadastrar documentos em páginas acessadas por links suspeitos.", "Consultar regularmente contas e compromissos associados ao seu CPF ajuda a detectar problemas cedo."],
+        dica: "Prefira um gerenciador de senhas a repetir a mesma senha em vários serviços.",
+        quiz: { pergunta: "Por que repetir senha é perigoso?", opcoes: ["Deixa o celular lento", "Um vazamento compromete várias contas", "Aumenta impostos", "Reduz o limite"], correta: 1, explicacao: "Uma única senha vazada pode abrir acesso a todos os serviços que a reutilizam." },
+      },
+      {
+        id: "seguros", titulo: "Risco e seguros", resumo: "Transfira riscos grandes sem pagar por coberturas inúteis.", minutos: 8,
+        paragrafos: ["Seguro troca uma perda incerta e potencialmente grande por um custo previsível. Ele faz sentido para riscos que você não conseguiria absorver sozinho.", "Prêmio é o preço do seguro; franquia é a parte que você paga em determinados sinistros; cobertura define o que está protegido.", "Leia exclusões e limites. O seguro mais barato pode não cobrir o risco importante, enquanto coberturas duplicadas desperdiçam dinheiro."],
+        dica: "Compare cobertura, franquia e exclusões — não apenas o preço.",
+        quiz: { pergunta: "O que é franquia em muitos seguros?", opcoes: ["O valor investido", "A parte paga pelo segurado no sinistro", "O lucro da seguradora", "Um imposto"], correta: 1, explicacao: "A franquia é a participação do segurado em determinados prejuízos cobertos." },
+      },
+    ],
+  },
+  {
+    id: "investimentos-avancados",
+    titulo: "Estratégia de investimentos",
+    subtitulo: "Monte uma carteira coerente com prazo, risco, custos e objetivos.",
+    emoji: "🧭",
+    cor: "chart",
+    nivel: "Avançado",
+    licoes: [
+      {
+        id: "alocacao", titulo: "Alocação e diversificação", resumo: "Distribua riscos sem colecionar ativos aleatórios.", minutos: 9,
+        paragrafos: ["Alocação é a divisão do patrimônio entre classes de ativos. Ela costuma influenciar mais o comportamento da carteira do que escolher um único investimento vencedor.", "Diversificar reduz riscos específicos, mas não elimina oscilações do mercado. Ativos precisam ter funções claras: liquidez, estabilidade, renda ou crescimento.", "Rebalancear significa retornar às proporções planejadas, vendendo parte do que cresceu ou direcionando novos aportes ao que ficou abaixo da meta."],
+        dica: "Escreva a função de cada investimento antes de comprá-lo.",
+        quiz: { pergunta: "Qual é o objetivo do rebalanceamento?", opcoes: ["Prever o mercado", "Retornar à alocação planejada", "Eliminar todo risco", "Comprar só o que subiu"], correta: 1, explicacao: "Rebalancear mantém o risco alinhado ao plano original." },
+      },
+      {
+        id: "marcacao-mercado", titulo: "Marcação a mercado", resumo: "Entenda por que um título pode oscilar antes do vencimento.", minutos: 9,
+        paragrafos: ["O preço de um título prefixado muda quando as taxas de mercado mudam. Se novas taxas sobem, títulos antigos com taxa menor tendem a perder valor no curto prazo.", "Levar o título até o vencimento preserva a regra contratada, desde que o emissor pague. Vender antes expõe você ao preço daquele dia.", "Prazo e objetivo precisam combinar: dinheiro com data próxima não deve depender de vender um ativo volátil em um momento ruim."],
+        dica: "Antes de investir, descubra o que acontece se você precisar resgatar antes do vencimento.",
+        quiz: { pergunta: "Quando taxas de mercado sobem, um prefixado antigo tende a:", opcoes: ["Valorizar imediatamente", "Cair de preço no curto prazo", "Virar ação", "Perder o vencimento"], correta: 1, explicacao: "Novos títulos ficam mais atraentes, reduzindo o preço de negociação do antigo." },
+      },
+      {
+        id: "custos-e-impostos", titulo: "Custos, impostos e retorno líquido", resumo: "Compare o que realmente fica no bolso.", minutos: 8,
+        paragrafos: ["Taxas de administração, corretagem, spreads e impostos reduzem o retorno. Pequenas diferenças anuais se acumulam ao longo de décadas.", "Compare investimentos na mesma base: risco, prazo, liquidez e retorno líquido. Uma taxa maior pode não compensar menor segurança ou dinheiro preso.", "Rentabilidade passada ajuda a estudar comportamento, mas não é promessa. O plano deve sobreviver a cenários diferentes."],
+        dica: "Peça sempre a taxa líquida estimada e liste todos os custos.",
+        quiz: { pergunta: "Qual retorno deve ser comparado ao decidir?", opcoes: ["O bruto anunciado", "O líquido após custos e impostos", "O melhor mês", "A promessa do vendedor"], correta: 1, explicacao: "É o retorno líquido que efetivamente aumenta seu patrimônio." },
+      },
+    ],
+  },
+  {
+    id: "planejamento-de-vida",
+    titulo: "Planejamento de longo prazo",
+    subtitulo: "Transforme grandes escolhas de estudo, moradia e aposentadoria em cenários possíveis.",
+    emoji: "🗺️",
+    cor: "primary",
+    nivel: "Avançado",
+    licoes: [
+      {
+        id: "cenarios", titulo: "Decisões por cenários", resumo: "Planeje sem fingir que o futuro é previsível.", minutos: 9,
+        paragrafos: ["Uma projeção não é previsão. Crie cenários conservador, provável e otimista variando renda, inflação, custos e prazo.", "Decisões robustas continuam razoáveis mesmo no cenário conservador. Se um plano só funciona quando tudo dá certo, ele é frágil.", "Revise os cenários quando sua realidade mudar. Planejamento é um processo contínuo, não um documento definitivo."],
+        dica: "Teste sua meta com renda 10% menor e custo 10% maior.",
+        quiz: { pergunta: "Para que serve um cenário conservador?", opcoes: ["Garantir o futuro", "Testar se o plano suporta condições piores", "Eliminar revisões", "Aumentar dívidas"], correta: 1, explicacao: "Ele revela a margem de segurança do plano." },
+      },
+      {
+        id: "grandes-compras", titulo: "Grandes compras", resumo: "Compare custo total, oportunidade e flexibilidade.", minutos: 9,
+        paragrafos: ["Uma grande compra inclui custos além do preço: manutenção, seguro, impostos, juros e perda de valor também entram na conta.", "Custo de oportunidade é aquilo que você deixa de fazer com o dinheiro. Uma parcela que cabe pode atrasar uma meta mais importante.", "Entrada maior reduz juros, mas não deve consumir toda a reserva. Equilibre custo financeiro e proteção contra imprevistos."],
+        dica: "Calcule o custo total por ano, não apenas a parcela mensal.",
+        quiz: { pergunta: "O que a parcela mensal pode esconder?", opcoes: ["A cor do produto", "O custo total e outras despesas", "A data", "A nota fiscal"], correta: 1, explicacao: "Prazo, juros e manutenção podem tornar uma parcela aparentemente leve muito cara." },
+      },
+      {
+        id: "aposentadoria", titulo: "Tempo e aposentadoria", resumo: "Começar cedo reduz o esforço necessário no futuro.", minutos: 10,
+        paragrafos: ["A aposentadoria depende de renda futura e patrimônio acumulado. Quanto maior o prazo, mais os juros compostos podem contribuir para o objetivo.", "Risco de longevidade é viver mais do que o dinheiro planejado. Inflação e custos de saúde tornam importante trabalhar com margem.", "Contribuições públicas e investimentos próprios podem se complementar. Diversificar fontes de renda futura reduz dependência de uma única regra."],
+        dica: "Aumente o aporte quando sua renda subir, antes de elevar o padrão de vida.",
+        quiz: { pergunta: "Qual vantagem principal de começar cedo?", opcoes: ["Retorno garantido", "Mais tempo para juros compostos", "Ausência de inflação", "Não precisar aportar"], correta: 1, explicacao: "Mais tempo permite que rendimentos também produzam rendimentos por mais ciclos." },
+      },
+    ],
+  },
 ];
 
 export function getTrilha(id: string) {
@@ -362,5 +528,26 @@ export const jogos: Jogo[] = [
     descricao: "Acerte quanto uma dívida ou um investimento vira depois de alguns meses.",
     emoji: "❄️",
     habilidade: "Juros e inflação",
+  },
+  {
+    id: "reserva-de-emergencia",
+    nome: "Operação imprevisto",
+    descricao: "Monte uma reserva capaz de enfrentar diferentes emergências sem recorrer a dívidas.",
+    emoji: "🧯",
+    habilidade: "Reserva de emergência",
+  },
+  {
+    id: "detetive-do-credito",
+    nome: "Detetive do crédito",
+    descricao: "Compare propostas pelo custo total e descubra qual crédito pesa menos no orçamento.",
+    emoji: "🔎",
+    habilidade: "Crédito e CET",
+  },
+  {
+    id: "monte-sua-carteira",
+    nome: "Monte sua carteira",
+    descricao: "Associe objetivos a investimentos considerando prazo, liquidez e risco.",
+    emoji: "🧩",
+    habilidade: "Investimentos",
   },
 ];

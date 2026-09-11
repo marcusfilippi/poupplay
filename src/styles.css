@@ -163,12 +163,7 @@
 }
 
 @utility text-gradient-poup {
-  background-image: linear-gradient(
-    100deg,
-    var(--color-primary),
-    oklch(0.7 0.19 135) 55%,
-    var(--color-accent)
-  );
+  background-image: linear-gradient(100deg, var(--color-primary), var(--color-success));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
