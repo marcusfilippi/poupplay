@@ -145,7 +145,7 @@ function Index() {
             </Link>
           </div>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
-            {trilhas.map((t) => (
+            {trilhas.slice(0, 4).map((t) => (
               <Link
                 key={t.id}
                 to="/trilhas/$trilhaId"
@@ -153,6 +153,7 @@ function Index() {
                 className="group rounded-3xl border border-border bg-card p-6 shadow-soft transition hover:-translate-y-1 hover:border-primary/40"
               >
                 <span className="text-3xl">{t.emoji}</span>
+                <span className="ml-3 rounded-full bg-secondary px-2.5 py-1 text-xs font-bold text-secondary-foreground">{t.nivel}</span>
                 <h3 className="mt-3 text-xl font-bold">{t.titulo}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{t.subtitulo}</p>
                 <p className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-primary">

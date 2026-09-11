@@ -61,12 +61,13 @@ function ProgressoPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold">
-                    {t.emoji} {t.titulo}
+                    {t.emoji} {t.titulo} <small className="ml-1 font-medium text-muted-foreground">{t.nivel}</small>
                   </span>
                   <span className="text-sm text-muted-foreground">
                     {done}/{t.licoes.length}
                   </span>
                 </div>
+                {progresso.provasAprovadas.includes(t.id) && <p className="mt-2 text-xs font-bold text-primary">Prova aprovada</p>}
                 <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-muted">
                   <div
                     className="h-full rounded-full bg-primary"
