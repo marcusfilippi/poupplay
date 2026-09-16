@@ -511,7 +511,7 @@ export const jogos: Jogo[] = [
   {
     id: "orcamento-mensal",
     nome: "Divida a mesada",
-    descricao: "Distribua R$ 800 entre necessidades, desejos e poupança sem estourar o mês.",
+    descricao: "Distribua uma renda sorteada entre necessidades, desejos e poupança sem estourar o mês.",
     emoji: "🧮",
     habilidade: "Orçamento",
   },

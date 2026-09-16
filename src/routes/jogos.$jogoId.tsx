@@ -143,7 +143,11 @@ function JogoPerguntas({ jogoId, pool }: { jogoId: string; pool: RodadaBase[] })
   }
 
   React.useEffect(() => { reiniciar(); }, [jogoId]);
-  React.useEffect(() => { if (fim && rodadas.length) registrarJogo(jogoId, Math.round(acertos / rodadas.length * 100)); }, [fim, acertos, jogoId, registrarJogo, rodadas.length]);
+  React.useEffect(() => {
+    if (fim && rodadas.length) registrarJogo(jogoId, Math.round(acertos / rodadas.length * 100));
+    // registrarJogo muda quando o progresso é salvo; o resultado deve ser registrado apenas ao terminar.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fim, acertos, jogoId, rodadas.length]);
 
   if (fim) return <Painel><p className="text-3xl font-extrabold text-primary">{acertos} de {rodadas.length}</p><p className="mt-2 text-sm text-muted-foreground">Sua pontuação foi registrada. A próxima partida terá perguntas e alternativas em outra ordem.</p><Button className="mt-6 h-11 rounded-full px-6 font-bold" onClick={reiniciar}><RotateCcw /> Jogar novamente</Button></Painel>;
   const rodada = rodadas[indice];
