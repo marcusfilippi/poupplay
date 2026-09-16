@@ -133,10 +133,10 @@ export function useProgresso() {
 export function nivelDe(pontos: number) {
   const niveis = [
     { nome: "Poupador Iniciante", min: 0 },
-    { nome: "Organizador", min: 100 },
-    { nome: "Planejador", min: 250 },
-    { nome: "Investidor Jr.", min: 450 },
-    { nome: "Mestre das Finanças", min: 700 },
+    { nome: "Organizador", min: 250 },
+    { nome: "Planejador", min: 650 },
+    { nome: "Investidor Jr.", min: 1_200 },
+    { nome: "Mestre das Finanças", min: 2_000 },
   ];
   const atual = [...niveis].reverse().find((n) => pontos >= n.min) ?? niveis[0];
   const proximo = niveis.find((n) => n.min > pontos);

@@ -42,6 +42,14 @@ function preparar(pool: RodadaBase[], limite = 5): Rodada[] {
   }));
 }
 
+function prepararInicial(pool: RodadaBase[], limite = 5): Rodada[] {
+  return pool.slice(0, Math.min(limite, pool.length)).map((rodada) => ({
+    pergunta: rodada.pergunta,
+    explicacao: rodada.explicacao,
+    opcoes: rodada.respostas.map((texto, index) => ({ texto, correta: index === rodada.correta })),
+  }));
+}
+
 function JogoPage() {
   const { jogoId } = Route.useParams();
   const jogo = jogos.find((item) => item.id === jogoId);
@@ -121,7 +129,7 @@ function Faixa({ rotulo, valor, max, cor, onChange }: { rotulo: string; valor: n
 
 function JogoPerguntas({ jogoId, pool }: { jogoId: string; pool: RodadaBase[] }) {
   const { registrarJogo } = useProgresso();
-  const [rodadas, setRodadas] = React.useState(() => preparar(pool));
+  const [rodadas, setRodadas] = React.useState(() => prepararInicial(pool));
   const [indice, setIndice] = React.useState(0);
   const [escolha, setEscolha] = React.useState<number | null>(null);
   const [acertos, setAcertos] = React.useState(0);
